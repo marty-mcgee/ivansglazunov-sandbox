@@ -21,9 +21,11 @@ export const initAuthHasuraStrategy = (app: any, apolloClient: any) => {
           type: 'auth_token',
           value: token,
         });
+        console.log('BearerStrategy', { token, nodeId });
         if (!nodeId) return done('!nodeId');
         return done(null, { token, nodeId });
       } catch(error) {
+        console.log('BearerStrategy', { error });
         done(error);
       }
     }),
@@ -34,8 +36,9 @@ export const initAuthHasura = (path: string, app: any, apolloClient: any) => {
   app.get(
     path, 
     (req, res, next) => {
+      console.log('bearer1', req.url);
       passport.authenticate('bearer', (error, user, info) => {
-        console.log('bearer', req.url, error, user);
+        console.log('bearer2', error, user);
         if (error) {
           return res.status(401).json({ error: error.toString() });
         }
