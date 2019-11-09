@@ -35,6 +35,7 @@ export const initAuthHasura = (path: string, app: any, apolloClient: any) => {
     path, 
     (req, res, next) => {
       passport.authenticate('bearer', (error, user, info) => {
+        console.log('bearer', req.url, error, user);
         if (error) {
           return res.status(401).json({ error: error.toString() });
         }
