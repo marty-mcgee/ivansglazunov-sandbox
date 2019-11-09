@@ -22,6 +22,11 @@ export const defaultAuthContext = {
   logout: async () => {},
 };
 
+export const cookieToValue = (cookies) => ({
+  auth_token: cookies._sandbox_auth_token,
+  node_id: cookies._sandbox_auth_node_id,
+});
+
 export const AuthContext = createContext<IAuthContext>(defaultAuthContext);
 
 export const AuthProvider = ({
@@ -34,8 +39,7 @@ export const AuthProvider = ({
   const { cookies, setCookie } = useCookies();
   const [loading, setLoading] = useState(false);
 
-  const auth_token = cookies._sandbox_auth_token;
-  const node_id = cookies._sandbox_auth_node_id;
+  const value = cookieToValue(cookies);
 
   const localLogin = async (username: string, password: string) => {
     setLoading(true);
@@ -60,8 +64,7 @@ export const AuthProvider = ({
   };
 
   return <context.Provider value={{
-    auth_token,
-    node_id,
+    ...value,
     localLogin,
     logout,
     loading,

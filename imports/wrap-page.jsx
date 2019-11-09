@@ -29,19 +29,17 @@ export const wrapPage = Component => {
 
       return (
         <DndProvider backend={HTML5Backend}>
-          <AuthProvider>
-            <ThemeProvider theme={defaultTheme}>
-              <SnackbarProvider maxSnack={3}>
-                <AnaliticsProvider 
-                  facebookPixel={process.env.BG_TOKEN}
-                  googleAnalitics={process.env.GA_TOKEN}
-                  yandexMetrika={process.env.YM_TOKEN}
-                >
-                  <Component />
-                </AnaliticsProvider>
-              </SnackbarProvider>
-            </ThemeProvider>
-          </AuthProvider>
+          <ThemeProvider theme={defaultTheme}>
+            <SnackbarProvider maxSnack={3}>
+              <AnaliticsProvider 
+                facebookPixel={process.env.BG_TOKEN}
+                googleAnalitics={process.env.GA_TOKEN}
+                yandexMetrika={process.env.YM_TOKEN}
+              >
+                <Component />
+              </AnaliticsProvider>
+            </SnackbarProvider>
+          </ThemeProvider>
         </DndProvider>
       );
     },

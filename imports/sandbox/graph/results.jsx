@@ -40,11 +40,7 @@ export const Results = ({ onNodeClick, query, variables, viewMode }) => {
   const [deleteNode] = useMutation(DELETE_NODE);
 
   useEffect(() => {
-    console.log('mount or render');
     setHistory([ result.data, ...history.slice(0, 10) ]);
-    return () => {
-      console.log('unmount');
-    }
   }, [result.data]);
 
   return <>
@@ -74,7 +70,7 @@ export const Results = ({ onNodeClick, query, variables, viewMode }) => {
       onNodeClick={onNodeClick}
     />}
     <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%' }}>
-      <Tabs value={index} onChange={(e, v) => setIndex(v)} fullWidth variant="scrollable">
+      <Tabs value={index} onChange={(e, v) => setIndex(v)} variant="scrollable">
         {history.map((h, i) => (
           <Tab value={i} label={i}/>
         ))}

@@ -203,10 +203,7 @@ export function parseNode(
   parseLink(node.links_by_source, links, _road, nodes);
   parseLink(node.links_by_target, links, _road, nodes);
   const keys = Object.keys(node);
-  parseProp(node, 'nodes_props_passport_passwords', links, _road, nodes);
-  parseProp(node, 'nodes_props_sessions', links, _road, nodes);
   parseProp(node, 'nodes_props_types', links, _road, nodes);
-  parseProp(node, 'nodes_props_accesses', links, _road, nodes);
   parseIndex(node, links, _road, nodes);
 };
 

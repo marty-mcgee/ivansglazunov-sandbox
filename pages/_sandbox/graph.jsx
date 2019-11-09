@@ -137,13 +137,6 @@ export default wrapPage(() => {
     return result;
   };
 
-  useEffect(() => {
-    console.log('2 mount or render');
-    return () => {
-      console.log('2 unmount');
-    }
-  });
-
   return (
     <>
       <Paper
