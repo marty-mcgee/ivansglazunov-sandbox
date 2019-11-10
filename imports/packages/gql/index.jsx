@@ -17,7 +17,9 @@ export function generateHeaders(options: IOptions) {
       ? {
           Authorization: `Bearer ${options.token}`,
         }
-      : {}),
+      : {
+        Authorization: `Bearer anonymous`,
+      }),
     ...options.headers,
   };
   return headers;

@@ -22,8 +22,10 @@ export const defaultAuthContext = {
   logout: async () => {},
 };
 
+export const defaultToken = 'anonymous';
+
 export const cookieToValue = (cookies) => ({
-  auth_token: cookies._sandbox_auth_token,
+  auth_token: cookies._sandbox_auth_token || defaultToken,
   node_id: cookies._sandbox_auth_node_id,
 });
 

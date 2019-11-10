@@ -16,6 +16,7 @@ const QUERY = gql`
   query {
     _sandbox {
       id
+      user_id
     }
   }
 `;
