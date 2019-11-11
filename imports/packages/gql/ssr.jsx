@@ -64,8 +64,6 @@ export const wrapSsrGql = ({
       }
     }, [auth]);
 
-    console.log(ac);
-
     return <ApolloProvider client={ac}>
       <Content />
     </ApolloProvider>

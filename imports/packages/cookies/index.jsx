@@ -1,6 +1,6 @@
 // @flow
 
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Cookies from 'js-cookie';
 
@@ -26,6 +26,15 @@ export const CookiesProvider = ({
     Cookies.set(key, value);
     setStateCookies(parseCookies());
   });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStateCookies(parseCookies());
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return <context.Provider value={{
     cookies: stateCookies,
