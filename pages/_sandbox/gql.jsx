@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { wrapPage } from '../../imports/wrap-page';
+import { useAuth } from '../../imports/packages/auth/react';
 import { gql, useGql, useMutation } from '../../imports/packages/gql/use';
 
 const QUERY = gql`
@@ -24,8 +25,8 @@ const CLEAR = gql`
 `;
 
 const ADD = gql`
-  mutation {
-    insert__sandbox(objects: {}) {
+  mutation ADD($userId: String) {
+    insert__sandbox(objects: { user_id: $userId }) {
       returning {
         id
       }
@@ -34,6 +35,9 @@ const ADD = gql`
 `;
 
 export default wrapPage(() => {
+  const { node_id } = useAuth();
+
+  console.log({ node_id });
   const result = useGql(QUERY);
   const [clear] = useMutation(CLEAR);
   const [add] = useMutation(ADD);
@@ -42,7 +46,7 @@ export default wrapPage(() => {
       <div>{JSON.stringify(result.data, null, 1)}</div>
       <div>
         <button onClick={clear}>clear</button>
-        <button onClick={add}>add</button>
+        <button onClick={() => add({ variables: { userId: node_id } })}>add</button>
       </div>
     </>
   );

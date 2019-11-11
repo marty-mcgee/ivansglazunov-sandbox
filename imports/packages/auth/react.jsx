@@ -22,11 +22,12 @@ export const defaultAuthContext = {
   logout: async () => {},
 };
 
+export const defaultUserId = 'anonymous';
 export const defaultToken = 'anonymous';
 
-export const cookieToValue = (cookies) => ({
+export const cookieToValue = (cookies: any) => ({
   auth_token: cookies._sandbox_auth_token || defaultToken,
-  node_id: cookies._sandbox_auth_node_id,
+  node_id: cookies._sandbox_auth_node_id || defaultUserId,
 });
 
 export const AuthContext = createContext<IAuthContext>(defaultAuthContext);
