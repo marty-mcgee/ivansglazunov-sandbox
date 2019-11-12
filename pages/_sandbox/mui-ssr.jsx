@@ -13,6 +13,8 @@ import { defaultTheme } from '../../imports/themes/default';
 const useStyle = makeStyles(() => ({
   test: {
     color: 'red',
+    // for test prefixes
+    clipPath: 'polygon(85% 0, 100% 5%, 100% 100%, 0 100%, 0 5%, 15% 0)',
   },
 }));
 

@@ -51,7 +51,6 @@ export function generateApolloClient(
   initialState: any = {},
   options: IOptions = {},
 ): ApolloClient {
-  console.log(options);
   const headers = generateHeaders(options);
 
   const httpLink = new HttpLink({

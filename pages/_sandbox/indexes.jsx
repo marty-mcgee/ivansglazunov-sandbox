@@ -186,10 +186,6 @@ export default wrapPage(() => {
     links_indexes: _.get(lis, 'links_indexes', []),
   };
 
-  useEffect(() => {
-    setHistory([...history.slice(-10), data]);
-  }, [data]);
-
   return <div className={classes.scroll}>
     <Unlink deleteLink={deleteLink}>
       <Nodes data={data} insertLink={insertLink}/>

@@ -37,7 +37,6 @@ const ADD = gql`
 export default wrapPage(() => {
   const { node_id } = useAuth();
 
-  console.log({ node_id });
   const result = useGql(QUERY);
   const [clear] = useMutation(CLEAR);
   const [add] = useMutation(ADD);

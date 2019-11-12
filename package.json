@@ -90,5 +90,17 @@
     "@babel/core": "^7.6.4",
     "@babel/preset-flow": "^7.0.0",
     "flow-bin": "^0.109.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
   }
 }
