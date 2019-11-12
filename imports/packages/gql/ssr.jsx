@@ -50,14 +50,14 @@ export const wrapSsrGql = ({
   }) => {
     const auth = useAuth();
 
-    const [lastToken, setLastToken] = useState(auth.auth_token);
+    const [lastToken, setLastToken] = useState(auth. token);
     const [ac, setAc] = useState(apolloClient);
 
     useEffect(() => {
-      if (lastToken !== auth.auth_token) {
-        setLastToken(auth.auth_token);
+      if (lastToken !== auth.token) {
+        setLastToken(auth. token);
         setAc(generateApolloClientLocal({}, {
-          token: auth.auth_token,
+          token: auth. token,
           secret: gqlSecret,
           path: gqlPath,
         }, true));
@@ -96,7 +96,7 @@ export const wrapSsrGql = ({
     const value =  cookieToValue(cookies || {});
 
     const apolloClient = generateApolloClientLocal(apolloState, {
-      token: value.auth_token,
+      token: value.token,
       secret: gqlSecret,
       path: gqlPath,
     });
@@ -112,7 +112,7 @@ export const wrapSsrGql = ({
     const value =  cookieToValue(cookies || {});
 
     const apolloClient = generateApolloClient({}, {
-      token: value.auth_token,
+      token: value.token,
       secret: gqlSecret,
       path: gqlPath,
     });

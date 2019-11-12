@@ -35,7 +35,7 @@ const ADD = gql`
 `;
 
 export default wrapPage(() => {
-  const { node_id } = useAuth();
+  const { id } = useAuth();
 
   const result = useGql(QUERY);
   const [clear] = useMutation(CLEAR);
@@ -45,7 +45,7 @@ export default wrapPage(() => {
       <div>{JSON.stringify(result.data, null, 1)}</div>
       <div>
         <button onClick={clear}>clear</button>
-        <button onClick={() => add({ variables: { userId: node_id } })}>add</button>
+        <button onClick={() => add({ variables: { userId: id } })}>add</button>
       </div>
     </>
   );

@@ -8,7 +8,7 @@ import uniqid from 'uniqid';
 
 export const SELECT_NODE_ID_BY_STRING = gql`
 query SELECT_NODE_ID_BY_STRING($format: String, $type: String, $value: String) {
-  nodes(where: {nodes_props_strings: {format: {_eq: $format}, type: {_eq: $type}, value: {_eq: $value}}}) {
+  links(where: {links_props_strings: {format: {_eq: $format}, type: {_eq: $type}, value: {_eq: $value}}}) {
     id
   }
 }
@@ -23,16 +23,16 @@ export const selectNodeIdByString = async ({
     query: SELECT_NODE_ID_BY_STRING,
     variables: { format, type, value, },
   });
-  return _.get(r0, 'data.nodes.0.id');
+  return _.get(r0, 'data.links.0.id');
 };
 
 // select node strings by some string
 
 export const SELECT_NODE_WITH_STRINGS_BY_STRING = gql`
-query SELECT_NODE_WITH_STRINGS_BY_STRING($format: String, $type: String, $value: String, $stringsWhere: nodes_props_strings_bool_exp) {
-  nodes(where: {nodes_props_strings: {format: {_eq: $format}, type: {_eq: $type}, value: {_eq: $value}}}) {
+query SELECT_NODE_WITH_STRINGS_BY_STRING($format: String, $type: String, $value: String, $stringsWhere: links_props_strings_bool_exp) {
+  links(where: {links_props_strings: {format: {_eq: $format}, type: {_eq: $type}, value: {_eq: $value}}}) {
     id
-    nodes_props_strings(where: $stringsWhere) {
+    links_props_strings(where: $stringsWhere) {
       id
       type
       format
@@ -55,7 +55,7 @@ export const selectNodeWithStringsByString = ({
 
 export const INSERT_STRING_TO_NODE = gql`
 mutation INSERT_STRING_TO_NODE($format: String, $type: String, $value: String, $nodeId: String) {
-  insert_nodes_props_strings(objects: { format: $format, type: $type, value: $value, prop_node_id: $nodeId }) {
+  insert_links_props_strings(objects: { format: $format, type: $type, value: $value, prop_link_id: $nodeId }) {
     returning {
       id
     }
@@ -87,7 +87,7 @@ export const selectNodeIdByAuthGoogleId = ({
 
 // define node, upsert based on google_id and create new auth_token
 
-export const define_node_with_google_id_return_new_auth_token = async ({
+export const define_link_with_google_id_return_new_auth_token = async ({
   apolloClient, googleId
 }: {
   apolloClient: any; googleId: string;
@@ -114,7 +114,7 @@ export const define_node_with_google_id_return_new_auth_token = async ({
       value: token,
       nodeId,
     });
-    return { nodeId, token };
+    return { id: nodeId, token };
   }
 };
 
@@ -134,10 +134,10 @@ export const validate_and_define_node_with_username_and_password_return_new_auth
     format: 'txt', type: 'auth_username', value: username,
     stringsWhere: { format: { _eq: 'txt' }, type: { _eq: 'auth_password' } }
   });
-  const node = _.get(result, 'data.nodes.0');
+  const node = _.get(result, 'data.links.0');
   if (!node) return { error: 'node_lost' };
   else {
-    const nPassword = _.get(node, 'nodes_props_strings.0.value');
+    const nPassword = _.get(node, 'links_props_strings.0.value');
     if (!nPassword) return { error: 'password_lost' };
     else if (nPassword !== password) return { error: 'password_wrong' };
     else {
@@ -150,7 +150,7 @@ export const validate_and_define_node_with_username_and_password_return_new_auth
         nodeId: node.id,
       });
       return {
-        nodeId: node.id,
+        id: node.id,
         token,
       };
     }
@@ -161,7 +161,7 @@ export const validate_and_define_node_with_username_and_password_return_new_auth
 
 export const INSERT_NODE_WITH_AUTH_GOOGLE_ID_AND_TOKEN = gql`
 mutation INSERT_NODE_WITH_AUTH_GOOGLE_ID($googleId: String, $nodeId: String, $token: String) {
-  insert_nodes(objects: {id: $nodeId, nodes_props_strings: {data: [{format: "txt", type: "auth_google_id", value: $googleId}, {format: "txt", type: "auth_token", value: $token}]}}) {
+  insert_links(objects: {id: $nodeId, links_props_strings: {data: [{format: "txt", type: "auth_google_id", value: $googleId}, {format: "txt", type: "auth_token", value: $token}]}}) {
     returning {
       id
     }
@@ -178,5 +178,5 @@ export const insertNodeWithAuthGoogleIdAndToken = async({
     mutation: INSERT_NODE_WITH_AUTH_GOOGLE_ID_AND_TOKEN,
     variables: { googleId, nodeId, token },
   });
-  return { token, nodeId };
+  return { token, id: nodeId };
 };

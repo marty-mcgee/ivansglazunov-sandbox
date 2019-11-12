@@ -23,7 +23,7 @@ import { defaultTheme } from '../../imports/themes/default';
 import { Results } from '../../imports/sandbox/graph/results';
 import { ReactJson } from '../../imports/packages/react-json';
 import {
-  QUERY, ADD_ROOT_NODE, ADD_CHILD_NODE, INSERT_LINK, DELETE_NODE, DELETE_LINK,
+  QUERY, ADD_ROOT_NODE, ADD_CHILD_NODE, INSERT_LINK, DELETE_NODE,
 } from '../../imports/sandbox/graph/gql';
 import { useSnackbar } from 'notistack';
 
@@ -64,7 +64,7 @@ export default wrapPage(() => {
     onCompleted: () => enqueueSnackbar('DELETE_NODE completed'),
     onError: (error) => enqueueSnackbar(`DELETE_NODE error ${error}`, { variant: 'error' }),
   });
-  const [deleteLink] = useMutation(DELETE_LINK, {
+  const [deleteLink] = useMutation(DELETE_NODE, {
     onCompleted: () => enqueueSnackbar('DELETE_LINK completed'),
     onError: (error) => enqueueSnackbar(`DELETE_LINK error ${error}`, { variant: 'error' }),
   });
@@ -112,6 +112,7 @@ export default wrapPage(() => {
         sourceId: selected.id,
         // $flowignore
         targetId: linking.id,
+        id: uniqid(),
       },
     });
     setSelected(null);

@@ -105,7 +105,7 @@ const Node = ({ data, memory, node, insertLink }) => {
   const [{ isOver, canDrop }, dropRef] = useDrop({
     accept: 'node',
     drop: (item) => insertLink(node.id, item.id),
-    canDrop: (item) => true, // !_.find(node._node.indexes, i => i.index_node_id == item.id),
+    canDrop: (item) => true, // !_.find(node._node.indexes, i => i.index_of_id == item.id),
     collect: mon => ({
       isOver: !!mon.isOver(),
       canDrop: !!mon.canDrop(),

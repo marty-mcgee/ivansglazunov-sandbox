@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Cookies from 'js-cookie';
+import _ from 'lodash';
 
 export const CookiesContext = createContext<any>();
 
@@ -29,7 +30,8 @@ export const CookiesProvider = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setStateCookies(parseCookies());
+      const newCookies = parseCookies();
+      if (!_.isEqual(newCookies, stateCookies)) setStateCookies(newCookies);
     }, 1000);
     return () => {
       clearInterval(interval);

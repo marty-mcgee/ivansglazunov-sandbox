@@ -11,7 +11,7 @@ import { ReactJson } from '../../packages/react-json';
 import { Tabs, Tab } from '@material-ui/core';
 
 const ADD_ROOT_NODE = gql`mutation AddRootNode($nodeId: String) {
-  insert_nodes(objects: {id: $nodeId}) {
+  insert_links(objects: {id: $nodeId}) {
     returning {
       id
     }
@@ -19,7 +19,7 @@ const ADD_ROOT_NODE = gql`mutation AddRootNode($nodeId: String) {
 }`;
 
 const DELETE_NODE = gql`mutation DeleteNode($nodeId: String) {
-  delete_nodes(where: {id: {_eq: $nodeId}}) {
+  delete_links(where: {id: {_eq: $nodeId}}) {
     returning {
       id
     }

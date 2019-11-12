@@ -10,8 +10,8 @@ import axios from 'axios';
 import { useCookies } from "../cookies";
 
 interface IAuthContext {
-  auth_token?: string;
-  node_id?: string;
+  token?: string;
+  id?: string;
   localLogin: (username: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   loading?: boolean;
@@ -26,8 +26,8 @@ export const defaultUserId = 'anonymous';
 export const defaultToken = 'anonymous';
 
 export const cookieToValue = (cookies: any) => ({
-  auth_token: cookies._sandbox_auth_token || defaultToken,
-  node_id: cookies._sandbox_auth_node_id || defaultUserId,
+  token: cookies._sandbox_auth_token || defaultToken,
+  id: cookies._sandbox_auth_id || defaultUserId,
 });
 
 export const AuthContext = createContext<IAuthContext>(defaultAuthContext);
@@ -49,7 +49,7 @@ export const AuthProvider = ({
     const result = await axios.get(`/api/auth/local?username=${username}&password=${password}`);
     if (result.data && !result.data.error) {
       setCookie('_sandbox_auth_token', result.data.token);
-      setCookie('_sandbox_auth_node_id', result.data.nodeId);
+      setCookie('_sandbox_auth_id', result.data.id);
     }
     setLoading(false);
     return result.data;
@@ -60,7 +60,7 @@ export const AuthProvider = ({
     const result = await axios.get(`/api/auth/logout`);
     if (result.data && !result.data.error) {
       setCookie('_sandbox_auth_token', '');
-      setCookie('_sandbox_auth_node_id', '');
+      setCookie('_sandbox_auth_id', '');
     }
     setLoading(false);
     return result.data;

@@ -43,7 +43,7 @@ const ADD = gql`
 
 
 export default wrapPage(() => {
-  const { auth_token, node_id, localLogin, logout, loading } = useAuth();
+  const { auth_token, id, localLogin, logout, loading } = useAuth();
 
   const [ajaxR, setAjaxR] = useState<any>();
 
@@ -57,7 +57,7 @@ export default wrapPage(() => {
         <Grid item xs={12} sm={6}>
           <div>
             <div>_sandbox_auth_token: {auth_token}</div>
-            <div>_sandbox_auth_node_id: {node_id}</div>
+            <div>_sandbox_auth_id: {id}</div>
             <hr/>
             <div>
               <Link href="/api/auth/google"><a>/api/auth/google</a></Link>
@@ -106,7 +106,7 @@ export default wrapPage(() => {
           <div>{JSON.stringify(result.data, null, 1)}</div>
           <div>
             <button onClick={clear}>clear</button>
-            <button onClick={() => add({ variables: { userId: node_id } })}>add</button>
+            <button onClick={() => add({ variables: { userId: id } })}>add</button>
           </div>
         </Grid>
       </Grid>

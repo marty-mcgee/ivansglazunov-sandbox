@@ -7,7 +7,7 @@ import gql from 'graphql-tag';
 
 import ApolloClient from 'apollo-client';
 
-import { define_node_with_google_id_return_new_auth_token } from './gql';
+import { define_link_with_google_id_return_new_auth_token } from './gql';
 
 export const initAuthGoogleStrategy = (app: any, apolloClient: any) => {
   passport.use(
@@ -19,13 +19,13 @@ export const initAuthGoogleStrategy = (app: any, apolloClient: any) => {
       },
       async (accessToken, refreshToken, profile, done) => {
         const {
-          nodeId,
+          id,
           token,
-        } = await define_node_with_google_id_return_new_auth_token({
+        } = await define_link_with_google_id_return_new_auth_token({
           apolloClient,
           googleId: profile.id,
         });
-        done(null, { token, nodeId });
+        done(null, { token, id });
       }
     )
   );
@@ -48,7 +48,7 @@ export const initAuthGoogleCallback = (path: string, app: any, apolloClient: any
     (req, res) => {
       if (req.user) {
         res.cookie('_sandbox_auth_token', req.user.token);
-        res.cookie('_sandbox_auth_node_id', req.user.nodeId);
+        res.cookie('_sandbox_auth_id', req.user.id);
       }
       const url = _.get(req, 'cookies._sandbox_auth_redirect');
       res.redirect(url || '/');

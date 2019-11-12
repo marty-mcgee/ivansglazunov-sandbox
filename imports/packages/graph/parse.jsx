@@ -9,20 +9,19 @@ import _ from 'lodash';
 interface IDataLink {
   [string]: any;
   __typename: string;
-  id: number;
+  id: string;
   source_id: string;
   target_id: string;
-  node_id: string;
 }
 
 interface IDataNode {
   [string]: any;
   __typename: string;
   id: string;
-  links_indexes_by_list_node: {
+  links_indexes_by_list_of: {
     __typename: string;
     id: number;
-    list_node_id: string;
+    list_of_id: string;
     depth: number;
   }[]
 }
@@ -80,44 +79,7 @@ const parseLink = (
           __data: link,
         };
       }
-      if (link.node_id) {
-        links[`l${link.id}-node`] = {
-          id: `l${link.id}-node`,
-          source: `l${link.id}`,
-          target: `n${link.node_id}`,
-          group: `${link.__typename}-node`,
-          color: color('links.node', 500).backgroundColor,
-          __data: link,
-        };
-      }
     }
-  }
-};
-
-const parseProp = (
-  node: IDataNode,
-  rel: string,
-  links: { [string]: IViewLink },
-  _road: any,
-  nodes: { [string]: IViewNode },
-) => {
-  if (!_.size(node[rel])) return;
-  for (let p = 0; p < node[rel].length; p++) {
-    const pr = node[rel][p];
-    nodes[`${rel}${pr.id}`] = {
-      id: `${rel}${pr.id}`,
-      group: pr.__typename,
-      color: '#20ec3d',
-      __data: pr,
-    };
-    links[`pr-${rel}-${pr.id}`] = {
-      id: `pr-${rel}-${pr.id}`,
-      source: `${rel}${pr.id}`,
-      target: `n${pr.of_id}`,
-      group: pr.__typename,
-      color: '#20ec3d',
-      __data: pr,
-    };
   }
 };
 
@@ -127,14 +89,14 @@ const parseIndex = (
   _road: any,
   nodes: { [string]: IViewNode }
 ) => {
-  if (!_.size(node.links_indexes_by_list_node)) return;
-  for (let it = 0; it < node.links_indexes_by_list_node.length; it++) {
-    const index = node.links_indexes_by_list_node[it];
+  if (!_.size(node.links_indexes_by_list_of)) return;
+  for (let it = 0; it < node.links_indexes_by_list_of.length; it++) {
+    const index = node.links_indexes_by_list_of[it];
     if (!_road[`i${index.id}`]) {
       _road[`i${index.id}`] = true;
       nodes[`i${index.id}`] = {
         id: `i${index.id}`,
-        label: `i${index.id} n${index.list_node_id}(${index.depth})`,
+        label: `i${index.id} n${index.list_of_id}(${index.depth})`,
         group: index.__typename,
         color: '#a1a1a1',
         __data: index,
@@ -142,7 +104,7 @@ const parseIndex = (
       links[`in${index.id}`] = {
         id: `in${index.id}`,
         source: `i${index.id}`,
-        target: `n${index.list_node_id}`,
+        target: `n${index.list_of_id}`,
         group: `${index.__typename}`,
         color: '#a1a1a1',
         __data: index,
@@ -203,19 +165,18 @@ export function parseNode(
   parseLink(node.links_by_source, links, _road, nodes);
   parseLink(node.links_by_target, links, _road, nodes);
   const keys = Object.keys(node);
-  parseProp(node, 'nodes_props_types', links, _road, nodes);
   parseIndex(node, links, _road, nodes);
 };
 
 export function useParsed(
-  data: { nodes?: IDataNode[]; links?: IDataLink[]; },
+  data: { links?: IDataLink[]; },
   results: { nodes: IViewNode[]; links: IViewLink[] } = { nodes: [], links: [] },
 ) {
   const nodes = {};
   const _road = {};
   const links = {};
 
-  const ns = _.get(data, 'nodes');
+  const ns = _.get(data, 'links');
   if (_.size(ns)) {
     for (let n = 0; n < ns.length; n++) {
       parseNode(ns[n], nodes, links, _road);

@@ -176,7 +176,7 @@ Example on `/_sandbox/graphiql`.
 
 ## graph explorer
 
-Viewer based on nodes, links and props mutated data.
+Viewer based on links and props mutated data.
 
 ## children-responsive
 
