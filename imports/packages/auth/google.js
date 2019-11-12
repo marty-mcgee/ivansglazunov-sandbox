@@ -17,7 +17,8 @@ export const initAuthGoogleStrategy = (app: any, apolloClient: any) => {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CALLBACK,
       },
-      async (accessToken, refreshToken, profile, done) => {
+      async function (accessToken, refreshToken, profile, done) {
+        console.log('googleStr', this);
         const {
           id,
           token,

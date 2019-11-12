@@ -81,17 +81,3 @@ export function useAuth({
 } = {}) {
   return useContext(context);
 };
-
-export const fakeRouter = {};
-export function useAuthRedirect({
-  url,
-}: {
-  url?: string;
-} = {}) {
-  const router = useRouter();
-  const { pathname } = router || { pathname: url };
-
-  useEffect(() => {
-    Cookies.set('_sandbox_auth_redirect', pathname);
-  }, [url, pathname]);
-};

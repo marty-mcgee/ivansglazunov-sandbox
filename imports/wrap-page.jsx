@@ -9,7 +9,7 @@ import { DndProvider } from 'react-dnd-cjs';
 import HTML5Backend from 'react-dnd-html5-backend-cjs';
 import { ThemeProvider } from '@material-ui/styles';
 import { SnackbarProvider, useSnackbar } from 'notistack';
-import { AuthProvider, useAuthRedirect } from './packages/auth/react';
+import { AuthProvider } from './packages/auth/react';
 
 import { CookiesProvider } from './packages/cookies';
 
@@ -25,8 +25,6 @@ export const wrapPage = Component => {
     gqlPath: process.env.GQL_PATH,
     // gqlSecret: process.env.GQL_SECRET,
     Component: () => {
-      useAuthRedirect();
-
       return (
         <DndProvider backend={HTML5Backend}>
           <ThemeProvider theme={defaultTheme}>

@@ -25,13 +25,15 @@ export const CookiesProvider = ({
 
   const setCookie = useCallback((key, value) => {
     Cookies.set(key, value);
-    setStateCookies(parseCookies());
+    setStateCookies(Cookies.get());
   });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newCookies = parseCookies();
-      if (!_.isEqual(newCookies, stateCookies)) setStateCookies(newCookies);
+      const newCookies = Cookies.get();
+      if (!_.isEqual(newCookies, stateCookies)) {
+        setStateCookies(newCookies);
+      }
     }, 1000);
     return () => {
       clearInterval(interval);

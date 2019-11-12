@@ -12,7 +12,7 @@ import { RouterContext } from 'next-server/dist/lib/router-context';
 
 import { generateApolloClient } from './';
 import { CookiesProvider } from '../cookies';
-import { AuthProvider, useAuthRedirect, cookieToValue, useAuth } from '../auth/react';
+import { AuthProvider, cookieToValue, useAuth } from '../auth/react';
 
 const getStorage = () => {
   // $flowignore

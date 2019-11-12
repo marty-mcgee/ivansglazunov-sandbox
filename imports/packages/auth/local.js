@@ -23,7 +23,6 @@ export const initAuthLocal = async (req: ClientRequest, res: ServerResponse, apo
       username, password,
     });
   } catch(error) {
-    console.log(error);
     return res.send({ error: 'broken' });
   }
   res.send(result);

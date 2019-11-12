@@ -117,15 +117,15 @@ query {
     index_of_id
     list_id
     list_of_id
-    index_link {
+    index_in {
       id
       source_id
       target_id
     }
-    index_node {
+    index_of {
       id
     }
-    list_node {
+    list_of {
       id
     }
   }
@@ -159,7 +159,7 @@ export const DELETE_LINK = gql`
 `;
 
 export const INSERT_NODE = gql`
-  mutation INSERT_NODE($objects: [nodes_insert_input!]!) {
+  mutation INSERT_NODE($objects: [links_insert_input!]!) {
     node: insert_links(objects: $objects) {
       returning {
         id

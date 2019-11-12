@@ -181,7 +181,7 @@ export default wrapPage(() => {
 
   const loading = ns_l || ls_l || lis_l;
   const data = {
-    nodes: _.get(ns, 'nodes', []),
+    nodes: _.get(ns, 'links', []),
     links: _.get(ls, 'links', []),
     links_indexes: _.get(lis, 'links_indexes', []),
   };
