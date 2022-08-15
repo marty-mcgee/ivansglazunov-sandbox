@@ -8,6 +8,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import fetch from 'node-fetch';
 
 export function generateHeaders(options: IOptions) {
+  console.log("[MM] options", options)
   const headers = {
     ...(options.secret
       ? {

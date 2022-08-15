@@ -23,7 +23,7 @@ export const wrapPage = Component => {
   // TODO add gqlToken
   return wrapSsrGql({
     gqlPath: process.env.GQL_PATH,
-    // gqlSecret: process.env.GQL_SECRET,
+    gqlSecret: process.env.GQL_SECRET,
     Component: () => {
       return (
         <DndProvider backend={HTML5Backend}>

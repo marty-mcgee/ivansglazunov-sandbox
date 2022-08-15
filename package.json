@@ -1,10 +1,10 @@
 {
   "name": "sandbox",
-  "version": "0.0.0",
-  "repository": "ivansglazunov/sandbox",
+  "version": "0.0.1",
+  "repository": "marty-mcgee/ivansglazunov-sandbox",
   "scripts": {
     "flow": "flow",
-    "dev": "next -p $PORT",
+    "dev": "next -p 3001",
     "build": "next build",
     "start": "next start -p $PORT",
     "export": "next export",
