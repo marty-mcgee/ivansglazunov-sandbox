@@ -4,8 +4,10 @@ import React from 'react';
 import Link from 'next/link';
 import 'normalize.css';
 
+const spacing = 1
+
 export default () => (
-  <div>
+  <div style={{margin: spacing + 'em'}}>
     <Link href="/_sandbox/picture">
       <a>
         <div>picture</div>
