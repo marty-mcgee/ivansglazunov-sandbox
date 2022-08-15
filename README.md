@@ -1,30 +1,15 @@
-# sandbox
+# threedgarden sandbox
 
-- [x] flow types
-- [x] api tested
-- [x] graphiql for out graph concept
-- [x] packages to separated publish
-  - [x] google/yandex/facebook analitis
-  - [x] gql ssr hybrid query/subscriptions
-  - [x] use-url-state
-  - [x] children-responsive
-  - [ ] nextjs-passportjs
-  - [ ] react-spring-reveals
-
-## how
+## install + run
 
 ```sh
-git clone url sandbox
-cd sandbox
-npm i
-PORT=3000 npm run dev
+npm i | yarn install | pnpm i
+PORT=3000 npm run dev | yarn dev | pnpm dev
 ```
 
-## env
+## create + set your .env file
 
-> If you need to use sandbox not only for hasura gql, pls make PR.
-
-In process environment must be defined:
+> In process environment must be defined:
 
 ```sh
 GQL_SECRET='<x-hasura-admin-secret>'
@@ -56,7 +41,7 @@ PATH_PREFIX='/my-repo'
 ## manual fork
 
 ```bash
-git clone https://github.com/ivansglazunov/sandbox.git my-project
+git clone https://github.com/marty-mcgee/ivansglazunov-sandbox.git my-project
 cd my-project
 git remote remove origin
 git remote add origin https://github.com/<my>/<repo>.git
@@ -65,7 +50,7 @@ git remote add origin https://github.com/<my>/<repo>.git
 #### manual sync from sandbox
 
 ```bash
-git remote add sandbox https://github.com/ivansglazunov/sandbox.git
+git remote add sandbox https://github.com/marty-mcgee/ivansglazunov-sandbox.git
 git pull sandbox
 git merge sandbox/master
 ```
@@ -113,7 +98,7 @@ Using url query as state storage.
 For example:
 
 ```jsx
-const [{ x }, setValue] = useQuery('abc', { x: 1 });
+const [{ x }, setValue] = useQuery("abc", { x: 1 });
 ```
 
 It store `{ x: 1 }` object in query `?abc={x:1}`.
@@ -125,7 +110,7 @@ Tag `<picture/>` with `responsive-loader` demo page
 Prepare image require outer any react render function.
 
 ```jsx
-const ri = require('../images/sandbox.jpg?sizes[]=1800,sizes[]=1280,sizes[]=960,sizes[]=600,sizes[]=300,sizes[]=100');
+const ri = require("../images/sandbox.jpg?sizes[]=1800,sizes[]=1280,sizes[]=960,sizes[]=600,sizes[]=300,sizes[]=100");
 ```
 
 Insert into your render `<Picture/>` component. They create picture with sources for each image size. For example for size 1280, will be `@media (min-width: 1280px)`.
@@ -137,7 +122,7 @@ Insert into your render `<Picture/>` component. They create picture with sources
 You can send any `<img/>` props into `<Picture/>`.
 
 ```jsx
-<Picture images={ri.images} src={ri.src} style={{ width: '100%' }} />
+<Picture images={ri.images} src={ri.src} style={{ width: "100%" }} />
 ```
 
 ## ssr gql
@@ -145,13 +130,13 @@ You can send any `<img/>` props into `<Picture/>`.
 Simple way to use ssr gql.
 
 ```jsx
-import React from 'react';
+import React from "react";
 
-import gql from 'graphql-tag';
-import { useGql, useMutation } from '../../imports/packages/gql/use';
+import gql from "graphql-tag";
+import { useGql, useMutation } from "../../imports/packages/gql/use";
 
 // Includes ../../imports/packages/gql/ssr ssrWrap
-import { wrapPage } from '../../imports/wrap-page';
+import { wrapPage } from "../../imports/wrap-page";
 
 const query = gql`
   query {
@@ -196,3 +181,5 @@ import { ChildrenResponsive } from '../../imports/packages/children-responsive';
   <div style={{ display: 'inline-block' }}>inline-block</div>
 </ChildrenResponsive>
 ```
+
+#### thank you [MM]
